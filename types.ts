@@ -35,10 +35,12 @@ export interface Plan {
 export type AccessibilityState = {
     fontSize: number; // 0 (small), 1 (normal), 2 (large)
     highContrast: boolean;
+    darkMode: boolean;
 };
 
 export type AccessibilityContextType = {
     state: AccessibilityState;
     toggleContrast: () => void;
     setFontSize: (size: number) => void;
+    toggleDarkMode: () => void;
 };

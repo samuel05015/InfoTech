@@ -11,13 +11,31 @@ export const useAccessibility = () => {
 };
 
 export const AccessibilityProvider = ({ children }: { children: ReactNode }) => {
-    const [state, setState] = useState({ fontSize: 1, highContrast: false });
+    const [state, setState] = useState(() => {
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        return { fontSize: 1, highContrast: false, darkMode: savedDarkMode };
+    });
 
     const toggleContrast = () => setState(prev => ({ ...prev, highContrast: !prev.highContrast }));
     const setFontSize = (size: number) => setState(prev => ({ ...prev, fontSize: Math.max(0, Math.min(2, size)) }));
+    const toggleDarkMode = () => {
+        setState(prev => {
+            const newDarkMode = !prev.darkMode;
+            localStorage.setItem('darkMode', String(newDarkMode));
+            return { ...prev, darkMode: newDarkMode };
+        });
+    };
+
+    useEffect(() => {
+        if (state.darkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [state.darkMode]);
 
     return (
-        <AccessibilityContext.Provider value={{ state, toggleContrast, setFontSize }}>
+        <AccessibilityContext.Provider value={{ state, toggleContrast, setFontSize, toggleDarkMode }}>
             <div 
                 className={`min-h-screen transition-colors duration-300 ${state.highContrast ? 'grayscale contrast-125 bg-black text-white' : ''}`}
                 style={{ fontSize: state.fontSize === 0 ? '0.875rem' : state.fontSize === 2 ? '1.25rem' : '1rem' }}
@@ -35,26 +53,27 @@ export const AccessibilityToolbar = () => {
     return (
         <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
             <div className={`
-                flex flex-col gap-2 p-4 rounded-2xl bg-white/90 backdrop-blur-md shadow-2xl border border-white/20
+                flex flex-col gap-2 p-4 rounded-2xl backdrop-blur-md shadow-2xl border
                 transition-all duration-300 origin-bottom-right
+                ${state.darkMode ? 'bg-slate-800/90 border-slate-700' : 'bg-white/90 border-white/20'}
                 ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-10 pointer-events-none'}
             `}>
-                <div className="text-sm font-semibold text-slate-500 mb-1 px-1">Fonte</div>
+                <div className={`text-sm font-semibold mb-1 px-1 ${state.darkMode ? 'text-slate-300' : 'text-slate-500'}`}>Tamanho da Fonte</div>
                 <div className="flex gap-2">
-                    <button onClick={() => setFontSize(state.fontSize + 1)} className="p-2 hover:bg-slate-100 rounded-lg" title="Aumentar" aria-label="Aumentar fonte"><ZoomIn size={20} className="text-slate-700" /></button>
-                    <button onClick={() => setFontSize(state.fontSize - 1)} className="p-2 hover:bg-slate-100 rounded-lg" title="Diminuir" aria-label="Diminuir fonte"><ZoomOut size={20} className="text-slate-700" /></button>
-                    <button onClick={() => setFontSize(1)} className="p-2 hover:bg-slate-100 rounded-lg" title="Resetar" aria-label="Resetar fonte"><Type size={20} className="text-slate-700" /></button>
+                    <button onClick={() => setFontSize(state.fontSize + 1)} className={`p-2 rounded-lg ${state.darkMode ? 'hover:bg-slate-700 text-slate-200' : 'hover:bg-slate-100 text-slate-700'}`} title="Aumentar" aria-label="Aumentar fonte"><ZoomIn size={20} /></button>
+                    <button onClick={() => setFontSize(state.fontSize - 1)} className={`p-2 rounded-lg ${state.darkMode ? 'hover:bg-slate-700 text-slate-200' : 'hover:bg-slate-100 text-slate-700'}`} title="Diminuir" aria-label="Diminuir fonte"><ZoomOut size={20} /></button>
+                    <button onClick={() => setFontSize(1)} className={`p-2 rounded-lg ${state.darkMode ? 'hover:bg-slate-700 text-slate-200' : 'hover:bg-slate-100 text-slate-700'}`} title="Resetar" aria-label="Resetar fonte"><Type size={20} /></button>
                 </div>
                 
-                <div className="h-px bg-slate-200 my-1"></div>
+                <div className={`h-px my-1 ${state.darkMode ? 'bg-slate-700' : 'bg-slate-200'}`}></div>
                 
-                <div className="text-sm font-semibold text-slate-500 mb-1 px-1">Visual</div>
+                <div className={`text-sm font-semibold mb-1 px-1 ${state.darkMode ? 'text-slate-300' : 'text-slate-500'}`}>Alto Contraste</div>
                 <button 
                     onClick={toggleContrast} 
-                    className={`flex items-center gap-2 p-2 rounded-lg w-full transition-colors ${state.highContrast ? 'bg-brand-600 text-white' : 'hover:bg-slate-100 text-slate-700'}`}
+                    className={`flex items-center gap-2 p-2 rounded-lg w-full transition-colors ${state.highContrast ? 'bg-slate-900 text-white' : state.darkMode ? 'hover:bg-slate-700 text-slate-200' : 'hover:bg-slate-100 text-slate-700'}`}
                 >
-                    {state.highContrast ? <Sun size={20} /> : <Moon size={20} />}
-                    <span className="text-sm font-medium">Alto Contraste</span>
+                    <RotateCcw size={20} />
+                    <span className="text-sm font-medium">{state.highContrast ? 'Desativar' : 'Ativar'}</span>
                 </button>
             </div>
 

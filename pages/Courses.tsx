@@ -21,18 +21,18 @@ export const Courses = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
                 <div>
-                    <h1 className="text-4xl md:text-5xl font-display font-bold text-slate-900 mb-4">Catálogo de Cursos</h1>
-                    <p className="text-xl text-slate-500 font-light">Explore nossa biblioteca de conhecimento premium.</p>
+                    <h1 className="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white mb-4">Catálogo de Cursos</h1>
+                    <p className="text-xl text-slate-500 dark:text-slate-400 font-light">Explore nossa biblioteca de conhecimento premium.</p>
                 </div>
                 
                 {/* Search Bar */}
-                <div className="flex flex-col sm:flex-row gap-4 bg-white p-2.5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-slate-100 w-full md:w-auto">
+                <div className="flex flex-col sm:flex-row gap-4 bg-white dark:bg-slate-800 p-2.5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-slate-100 dark:border-slate-700 w-full md:w-auto">
                     <div className="relative group w-full md:w-80">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-600 transition-colors" size={20} />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-focus-within:text-brand-600 transition-colors" size={20} />
                         <input 
                             type="text" 
                             placeholder="Buscar por nome ou tecnologia..." 
-                            className="pl-12 pr-4 py-3 bg-slate-50 rounded-xl outline-none text-slate-700 w-full border border-transparent focus:bg-white focus:border-brand-200 focus:ring-4 focus:ring-brand-500/10 transition-all font-medium placeholder:font-normal"
+                            className="pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-900 rounded-xl outline-none text-slate-700 dark:text-slate-200 w-full border border-transparent focus:bg-white dark:focus:bg-slate-800 focus:border-brand-200 focus:ring-4 focus:ring-brand-500/10 transition-all font-medium placeholder:font-normal placeholder:text-slate-400 dark:placeholder:text-slate-500"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
@@ -49,8 +49,8 @@ export const Courses = () => {
                         className={`
                             px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 border
                             ${activeLevel === level 
-                                ? 'bg-slate-900 text-white border-slate-900 shadow-lg shadow-slate-900/20 transform scale-105' 
-                                : 'bg-white text-slate-600 border-slate-200 hover:border-brand-300 hover:text-brand-600'}
+                                ? 'bg-slate-900 dark:bg-brand-600 text-white border-slate-900 dark:border-brand-600 shadow-lg shadow-slate-900/20 transform scale-105' 
+                                : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-400'}
                         `}
                     >
                         {level}
@@ -61,13 +61,13 @@ export const Courses = () => {
             {/* Course Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {filteredCourses.map(course => (
-                    <Link to="/video-aula" key={course.id} className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 flex flex-col relative h-full">
+                    <Link to="/video-aula" key={course.id} className="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 flex flex-col relative h-full">
                         <div className="relative h-60 overflow-hidden">
                             <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10"></div>
                             <img src={course.image} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                             
                             {/* Price Badge */}
-                            <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-sm font-bold text-slate-900 shadow-lg border border-white/50">
+                            <div className="absolute top-4 right-4 z-20 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md px-3 py-1.5 rounded-full text-sm font-bold text-slate-900 dark:text-white shadow-lg border border-white/50 dark:border-slate-700/50">
                                 R$ {course.price.toFixed(2)}
                             </div>
                             
@@ -91,12 +91,12 @@ export const Courses = () => {
                         </div>
                         
                         <div className="p-8 flex-1 flex flex-col">
-                            <h3 className="text-2xl font-display font-bold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors line-clamp-2 leading-tight">
+                            <h3 className="text-2xl font-display font-bold text-slate-900 dark:text-white mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-2 leading-tight">
                                 {course.title}
                             </h3>
-                            <p className="text-slate-500 mb-6 line-clamp-3 leading-relaxed text-sm flex-1">{course.description}</p>
+                            <p className="text-slate-500 dark:text-slate-400 mb-6 line-clamp-3 leading-relaxed text-sm flex-1">{course.description}</p>
                             
-                            <div className="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+                            <div className="mt-auto flex items-center justify-between pt-6 border-t border-slate-100 dark:border-slate-700">
                                 <div className="flex gap-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
                                     <div className="flex items-center gap-1.5">
                                         <BarChart size={14} className="text-brand-500" /> {course.level}

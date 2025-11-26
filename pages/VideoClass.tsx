@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 export const VideoClass = () => {
     return (
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-            <Link to="/dashboard" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 font-bold mb-6 transition-colors">
-                <ChevronLeft size={20} /> Voltar para o Dashboard
+            <Link to="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 font-bold mb-6 transition-colors">
+                <ChevronLeft size={20} /> Voltar para a Home
             </Link>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">

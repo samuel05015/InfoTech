@@ -11,17 +11,14 @@ import { Auth } from './pages/Auth';
 import { Plans } from './pages/Plans';
 import { VideoClass } from './pages/VideoClass';
 import { News } from './pages/News';
+import { NewsArticle } from './pages/NewsArticle';
 import { Contact } from './pages/Contact';
-import { Dashboard } from './pages/Dashboard';
 
 function App() {
   return (
     <AccessibilityProvider>
       <Router>
         <Routes>
-          {/* Dashboard Route (No Public Layout) */}
-          <Route path="/dashboard" element={<Dashboard />} />
-
           {/* Public Routes */}
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
@@ -29,6 +26,7 @@ function App() {
             <Route path="/planos" element={<Plans />} />
             <Route path="/video-aula" element={<VideoClass />} />
             <Route path="/noticias" element={<News />} />
+            <Route path="/noticias/:id" element={<NewsArticle />} />
             <Route path="/novidades" element={<News />} />
             <Route path="/contato" element={<Contact />} />
             

@@ -5,12 +5,12 @@ import { PLANS } from '../constants';
 export const Plans = () => {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
-             <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-brand-50/50 to-transparent rounded-full blur-[120px] -z-10 pointer-events-none" />
+             <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-brand-50/50 dark:from-brand-900/20 to-transparent rounded-full blur-[120px] -z-10 pointer-events-none" />
              
             <div className="text-center max-w-3xl mx-auto mb-20">
-                <span className="text-brand-600 font-bold tracking-wider uppercase text-sm mb-3 block">Investimento</span>
-                <h1 className="text-5xl md:text-6xl font-display font-bold text-slate-900 mb-6 tracking-tight">Planos Flexíveis</h1>
-                <p className="text-xl text-slate-500 leading-relaxed">
+                <span className="text-brand-600 dark:text-brand-400 font-bold tracking-wider uppercase text-sm mb-3 block">Investimento</span>
+                <h1 className="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Planos Flexíveis</h1>
+                <p className="text-xl text-slate-500 dark:text-slate-400 leading-relaxed">
                     Escolha o plano ideal para o seu momento profissional. Sem taxas escondidas, cancele quando quiser.
                 </p>
             </div>
@@ -22,8 +22,8 @@ export const Plans = () => {
                         className={`
                             relative rounded-[2rem] p-8 md:p-10 transition-all duration-500
                             ${plan.isPopular 
-                                ? 'bg-slate-900 text-white shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] scale-110 z-10 border border-slate-700' 
-                                : 'bg-white text-slate-900 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 hover:-translate-y-2'}
+                                ? 'bg-slate-900 dark:bg-gradient-to-br dark:from-brand-600 dark:to-brand-700 text-white shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] scale-110 z-10 border border-slate-700 dark:border-brand-600' 
+                                : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 dark:border-slate-700 hover:-translate-y-2'}
                         `}
                     >
                         {plan.isPopular && (
@@ -33,16 +33,16 @@ export const Plans = () => {
                         )}
 
                         <div className="mb-8">
-                            <h3 className={`text-xl font-bold mb-2 ${plan.isPopular ? 'text-white' : 'text-slate-900'}`}>{plan.name}</h3>
+                            <h3 className={`text-xl font-bold mb-2 ${plan.isPopular ? 'text-white' : 'text-slate-900 dark:text-white'}`}>{plan.name}</h3>
                             <div className="flex items-baseline gap-1">
                                 <span className="text-lg font-medium opacity-60">R$</span>
-                                <span className={`text-5xl font-display font-bold ${plan.isPopular ? 'text-white' : 'text-slate-900'}`}>{Math.floor(plan.price)}</span>
+                                <span className={`text-5xl font-display font-bold ${plan.isPopular ? 'text-white' : 'text-slate-900 dark:text-white'}`}>{Math.floor(plan.price)}</span>
                                 <span className="text-2xl font-bold opacity-60">,{(plan.price % 1).toFixed(2).substring(2)}</span>
                             </div>
                             <span className="text-sm font-medium opacity-50">/mês cobrado anualmente</span>
                         </div>
 
-                        <div className={`h-px w-full ${plan.isPopular ? 'bg-slate-700' : 'bg-slate-100'} mb-8`}></div>
+                        <div className={`h-px w-full ${plan.isPopular ? 'bg-slate-700' : 'bg-slate-100 dark:bg-slate-700'} mb-8`}></div>
 
                         <ul className="space-y-4 mb-10">
                             {plan.features.map((feature, idx) => (
